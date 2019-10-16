@@ -1,0 +1,26 @@
+#!/bin/bash
+
+sudo su
+cd /opt/
+mkdir vivek
+cd vivek/
+wget https://www.scala-lang.org/files/archive/scala-2.9.2.rpm
+rpm -ihv scala-2.9.2.rpm
+wget https://archive.apache.org/dist/spark/spark-2.0.2/spark-2.0.2-bin-hadoop2.7.tgz -P /opt/vivek/
+tar -xvf spark-2.0.2-bin-hadoop2.7.tgz -C /usr/local
+cd /usr/local/
+mv spark-2.0.2-bin-hadoop2.7/ spark
+
+Set these properties in profiles file 
+export SPARK_HOME=/usr/local/spark
+export PATH=$PATH:$SPARK_HOME/bin
+
+cd $SPARK_HOME/conf
+cp spark-env.sh.template spark-env.sh
+vi spark-env.sh  -- edit ths file and add below properties 
+"export JAVA_HOME=/usr
+export SPARK_PUBLIC_DNS=”current_node_public_dns”
+export SPARK_WORKER_CORES=6"
+
+
+ 
