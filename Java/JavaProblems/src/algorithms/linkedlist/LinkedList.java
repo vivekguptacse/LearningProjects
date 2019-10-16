@@ -26,6 +26,7 @@ public class LinkedList
 		if(head == null)
 		{
 			head = node;
+			length++;
 			return;
 		}
 		
@@ -35,6 +36,11 @@ public class LinkedList
 		
 	}
 	
+	/**
+	 * Insert the node at the end of the list. 
+	 * 
+	 * @param node
+	 */
 	public void insertAtEnd(LinkedListNode node)
 	{
 		if(head == null)
@@ -52,13 +58,23 @@ public class LinkedList
 			
 			currentnode.setNext(node);
 		}
+		length++;
 	}
 	
+	/**
+	 * Insert the data at the specified position. 
+	 * 
+	 * @param data
+	 * @param position
+	 */
 	public void insert(int data, int position)
 	{
+		LinkedListNode node = new LinkedListNode(data);
 		if(head == null)
 		{
 			head = new LinkedListNode(data);
+			length++;
+			return;
 		}
 		if(position > length)
 		{
@@ -67,50 +83,217 @@ public class LinkedList
 		if(position < 0)
 		{
 			position = 0;
-		}
-		
-		LinkedListNode current, previous = head;
-		int pos =0;
-		while(pos <= position)
-		{
 			
+			if(null != head)
+			{
+				node.setNext(head.getNext());
+				head = node;
+				length++;
+				return;
+			}
 		}
-		
+
+		LinkedListNode currentNode = head;
+		int nodePos =0;
+		while(nodePos < position)
+		{
+			currentNode = currentNode.getNext();
+			nodePos++;
+		}
+		node.setNext(currentNode.getNext());
+		currentNode.setNext(node);
+		length++;
 	}
 	
+	/**
+	 * Removes the element from the beginning of the list. 
+	 * @return
+	 */
 	public LinkedListNode removefrombegin()
 	{
-		return null;
+		
+		if(null == head)
+		{
+			return null;
+		}
+		LinkedListNode result = head;
+		head = result.getNext();
+		result.setNext(null);
+		length--;
+		
+		return result;
 	}
 	
+	/**
+	 * Removes the last node of the list
+	 * @return
+	 */
 	public LinkedListNode removefromLast()
 	{
-		return null;
+		if(null == head)
+		{
+			return null;
+		}
+		
+		LinkedListNode current = head;
+		LinkedListNode prev = null;
+		
+		while(null != current.getNext())
+		{
+			prev = current;
+			current = current.getNext();
+		}
+		
+		prev.setNext(null);
+		length--;
+		
+		return current;
 	}
 	
+	/**
+	 * Removes the Node which matched the data of the passed node.  
+	 * @param node
+	 */
 	public void removeMatched(LinkedListNode node)
 	{
+		if(null == head)
+		{
+			return;
+		}
+		
+		LinkedListNode current = head;
+		LinkedListNode prev = null;
+		
+		while(null != current.getNext())
+		{
+			// Check if current data is equal to node data
+			if(current.getData() == node.getData())
+			{
+				prev.setNext(current.getNext());
+				current.setNext(null);
+				length--;
+				return;
+			}
+			prev = current;
+			current = current.getNext();
+		}
+		
+		prev.setNext(null);
+		length--;
+		
+	
 		
 	}
 	
+	/**
+	 * Removes the element at the position 
+	 * 
+	 * @param position
+	 */
 	public void remove(int position)
 	{
-		
+		if(head == null)
+		{
+			return;
+		}
+		if(position > length)
+		{
+			position = length;
+		}
+		if(position < 0)
+		{
+			position = 0;
+			
+			if(null != head)
+			{
+				LinkedListNode current = head;
+				current = head.getNext();
+				head.setNext(null);
+				head = current;
+				length--;
+				return;
+			}
+		}
+
+		LinkedListNode currentNode = head;
+		int nodePos =0;
+		while(nodePos < position)
+		{
+			currentNode = currentNode.getNext();
+			nodePos++;
+		}
+		if(currentNode.getNext() != null)
+		{
+			currentNode.setNext(currentNode.getNext().getNext());
+			length--;
+		}
+		else
+		{
+			currentNode.setNext(null);
+			length--;
+		}
 	}
 	
+	/**
+	 * 
+	 */
 	public String toString()
 	{
-		return "";
+		String result = "[ ";
+		LinkedListNode current = head;
+		
+		while(current.getNext() != null)
+		{
+			result = result+ current.getData() + " --> ";
+			current = current.getNext();
+		}
+		result = result + current.getData();
+		result = result + "]";
+		
+		return result;
 	}
 	
+	/**
+	 * Return the length of the List.
+	 * 
+	 *  Adding 1 as  the lenth 
+	 * @return
+	 */
 	public int getlength()
 	{
-		return length;
+		return length ;
 	}
 	
+	/**
+	 * Return the position of the node which has the data passed as argument. 
+	 * 
+	 * @param data
+	 * @return -1 if linked list is empty or data not found.
+	 * 
+	 */
 	public int getPosition(int data)
 	{
-		return -1;
+		int position = -1;
+		LinkedListNode node = new LinkedListNode(data);
+		if(null == head)
+		{
+			return -1;
+		}
+		
+		LinkedListNode current = head;
+
+		while(null != current.getNext())
+		{
+			// Check if current data is equal to node data
+			if(current.getData() == node.getData())
+			{
+				return position;
+			}
+			current = current.getNext();
+			position++;
+		}
+		
+		return position;
 	}
 	
 	/**
@@ -123,7 +306,13 @@ public class LinkedList
 		
 	}
 
-	private static int listLength(LinkedListNode linkedListNode)
+	/** 
+	 * Find the length of the list through iterating the nodes of the list. 
+	 * 
+	 * @param linkedListNode
+	 * @return
+	 */
+	public int listLength(LinkedListNode linkedListNode)
 	{
 		int length = 0;
 		LinkedListNode head= linkedListNode;
@@ -134,11 +323,5 @@ public class LinkedList
 			head= head.getNext();
 		}
 		return length;
-	}
-	
-	public static void main(String[] args)
-	{
-		LinkedListNode linkedListNode = new LinkedListNode(1);
-		System.out.println(listLength(linkedListNode));
 	}
 }
