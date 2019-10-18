@@ -305,6 +305,30 @@ public class LinkedList
 		length = 0;
 		
 	}
+	
+	/**
+	 * Return the node at the specified Element 
+	 * 
+	 * @param index
+	 * @return
+	 */
+	public int getNodeData(int index)
+	{
+		if (index >= length || index < 0)
+		{
+			System.out.println("List doesnot contains " + index + " elements or index is less then Zero ");
+			return -1;
+		}
+		LinkedListNode curr = head;
+		int pos = 0;
+		while (curr.getNext() != null && pos < index)
+		{
+			curr = curr.getNext();
+			pos++;
+		}
+
+		return curr.getData();
+	}
 
 	/** 
 	 * Find the length of the list through iterating the nodes of the list. 
@@ -323,5 +347,10 @@ public class LinkedList
 			head= head.getNext();
 		}
 		return length;
+	}
+
+	public LinkedListNode getHead()
+	{
+		return head;
 	}
 }

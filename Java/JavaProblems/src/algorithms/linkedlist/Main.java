@@ -60,9 +60,13 @@ public class Main
 		System.out.println(linkedList.getPosition(7));
 		linkedList.remove(5);
 		System.out.println("6"+linkedList);
+		
+		System.out.println(linkedList.getNodeData(2));
+		System.out.println(linkedList.getNodeData(0));
+		System.out.println(linkedList.getNodeData(8));
 	}
 
-	private static LinkedList createLinkedList()
+	public static LinkedList createLinkedList()
 	{
 		LinkedList linkedList = new LinkedList();
 		linkedList.insertAtBeginning(new LinkedListNode(4));

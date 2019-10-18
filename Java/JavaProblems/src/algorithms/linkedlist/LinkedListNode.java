@@ -37,6 +37,6 @@ public class LinkedListNode
 	{
 		return "LinkedListNode [data=" + data + ", next=" + next + "]";
 	}
-	
+
 
 }
