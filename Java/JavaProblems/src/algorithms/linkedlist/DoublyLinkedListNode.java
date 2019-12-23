@@ -53,4 +53,11 @@ public class DoublyLinkedListNode
 		this.prev = prev;
 	}
 
+	@Override
+	public String toString()
+	{
+		return "DoublyLinkedListNode [data=" + data + ", next=" + next
+				+ ", prev=" + prev + "]";
+	}
+
 }
